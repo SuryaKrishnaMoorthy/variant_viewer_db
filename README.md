@@ -45,5 +45,5 @@ Parts of a Project
 Installation
 ------------
 
-pip install https://github.com/JHibbard/pyclass2019.git
+pip install -e git+git://github.com/JHibbard/pyclass2019.git
 
