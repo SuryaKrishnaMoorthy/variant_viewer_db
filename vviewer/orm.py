@@ -53,6 +53,23 @@ class SequenceCenters(Base):
     created_on = Column(DateTime(timezone=True))
 
 
+class Sources(Base):
+    __tablename__ = 'sources'
+    id = Column(Integer, primary_key=True)
+    mrn = Column(String(255))
+    first_name = Column(String(255))
+    last_name = Column(String(255))
+    gender = Column(String(6))
+    dob = Column(DateTime)
+    disease_state = Column(JSONB)
+    maternal_id = Column(Integer)
+    paternal_id = Column(Integer)
+    family_id = Column(Integer)
+    permissions = Column(JSONB)
+    created_by = Column(String(255))
+    created_on = Column(DateTime(timezone=True))
+
+
 def init_db(uri):
     engine = create_engine(uri, convert_unicode=True, echo=False)
     db_session = scoped_session(sessionmaker(autocommit=False,
