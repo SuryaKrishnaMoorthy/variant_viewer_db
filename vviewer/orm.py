@@ -1,7 +1,7 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
 
 
@@ -16,7 +16,7 @@ class Samples(Base):
     date_collected = Column(DateTime)
     date_used = Column(DateTime)
     phenotype = Column(JSONB)
-    source_id = Column(Integer)
+    source_id = Column(Integer, ForeignKey("sources.id"))
     permissions = Column(JSONB)
     created_by = Column(String(255))
     created_on = Column(DateTime(timezone=True))
@@ -29,8 +29,8 @@ class BamFiles(Base):
     file_path = Column(String(255))
     date_sequenced = Column(DateTime)
     sequencer = Column(String(255))
-    sample_id = Column(Integer)
-    sequence_integer_id = Column(Integer)
+    sample_id = Column(Integer, ForeignKey("samples.id"))
+    sequence_integer_id = Column(Integer, ForeignKey("sequence_centers.id"))
     read_group = Column(String(255))
     permissions = Column(JSONB)
     created_by = Column(String(255))
@@ -40,7 +40,7 @@ class BamFiles(Base):
 class Studies(Base):
     __tablename__ = 'studies'
     id = Column(Integer, primary_key=True)
-    source_id = Column(Integer)
+    source_id = Column(Integer, ForeignKey("sources.id"))
     permissions = Column(JSONB)
 
 
