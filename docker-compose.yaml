@@ -1,0 +1,22 @@
+version: "3.7"
+# file structure
+# services for db, ui and server
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - target: 5432
+        published: 5432
+    networks:
+      - overlay
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1000M
+      restart_policy:
+        condition: on-failure
+
+networks:
+  overlay:
