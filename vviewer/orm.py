@@ -1,7 +1,8 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy.dialects.postgresql import JSONB
 
 
 Base = declarative_base()
@@ -12,7 +13,13 @@ class Samples(Base):
     id = Column(Integer, primary_key=True)
     tissue_type = Column(String(255))
     tumor_sample = Column(Boolean)
-    date_collected = Column(Date)
+    date_collected = Column(DateTime)
+    date_used = Column(DateTime)
+    phenotype = Column(JSONB)
+    source_id = Column(Integer)
+    permissions = Column(JSONB)
+    created_by = Column(String(255))
+    created_on = Column(DateTime(timezone=True))
 
 
 def init_db(uri):
