@@ -22,6 +22,35 @@ class Samples(Base):
     created_on = Column(DateTime(timezone=True))
 
 
+class BamFiles(Base):
+    __tablename__ = 'bam_files'
+    id = Column(Integer, primary_key=True)
+    original_filename = Column(String(255))
+    file_path = Column(String(255))
+    date_sequenced = Column(DateTime)
+    sequencer = Column(String(255))
+    sample_id = Column(Integer)
+    sequence_integer_id = Column(Integer)
+    read_group = Column(String(255))
+    permissions = Column(JSONB)
+    created_by = Column(String(255))
+    created_on = Column(DateTime(timezone=True))
+
+
+class Studies(Base):
+    __tablename__ = 'studies'
+    id = Column(Integer, primary_key=True)
+    source_id = Column(Integer)
+    permissions = Column(JSONB)
+
+
+class SequenceCenters(Base):
+    __tablename__ = 'sequence_centers'
+    id = Column(Integer, primary_key=True)
+    source_id = Column(Integer)
+    permissions = Column(JSONB)
+
+
 def init_db(uri):
     engine = create_engine(uri, convert_unicode=True, echo=False)
     db_session = scoped_session(sessionmaker(autocommit=False,
