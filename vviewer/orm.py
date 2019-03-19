@@ -47,8 +47,10 @@ class Studies(Base):
 class SequenceCenters(Base):
     __tablename__ = 'sequence_centers'
     id = Column(Integer, primary_key=True)
-    source_id = Column(Integer)
+    name = Column(String(255))
     permissions = Column(JSONB)
+    created_by = Column(String(255))
+    created_on = Column(DateTime(timezone=True))
 
 
 def init_db(uri):
