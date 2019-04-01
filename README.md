@@ -65,3 +65,40 @@ pip install -e git+git://github.com/JHibbard/pyclass2019.git
 > > > db.add(sample)
 > > > db.commit()
 > > > sample.id
+
+import vviewer
+uri = 'postgresql+psycopg2://postgres@localhost:5432/postgres'
+from ngsdb.schemas import orm
+db = orm.init_db(uri)
+s1 = orm.Samples(id=1, tissue_type="heart", tumor_sample=True)
+s2 = orm.Samples(id=2, tissue_type="lungs", tumor_sample=True)
+db.add(s1)
+db.add(s2)
+db.commit()
+s1@s2 => will run **matmul**
+
+<!-- Post Source -->
+
+curl -d '{"mrn": "Mr", "first_name": "John", "last_name": "Doe", "gender": "Male", "dob": "1990-12-19 09:26:03.47803", "maternal_id": 1, "paternal_id": 1, "family_id": 1, "permissions": "{test-permission: True}", "created_by": "source testname"}' -H "Content-Type: application/json" -X POST http://localhost:5000/sources
+
+curl -d '{"mrn": "Ms", "first_name": "Jane", "last_name": "Doe", "gender": "Female", "dob": "1990-12-19 09:26:03.47803", "maternal_id": 1, "paternal_id": 1, "family_id": 1, "permissions": "{test-permission: True}", "created_by": "source testname"}' -H "Content-Type: application/json" -X POST http://localhost:5000/sources
+
+<!-- Delete Sample -->
+
+curl -X DELETE 'http://localhost:5000/sources/1'
+
+<!-- Post Sample -->
+
+curl -d '{ "tissue_type": "liver", "tumor_sample": false, "date_collected": "2018-12-19 09:26:03.47803","date_used": "2018-12-19 09:26:03.47803", "source_id":1, "phenotype": "{resourceType: Observation,id: example-phenotype}","permissions": "{test-permission: True}", "created_by": "testname"}' -H "Content-Type: application/json" -X POST http://localhost:5000/samples
+
+<!-- Delete Sample -->
+
+curl -X DELETE 'http://localhost:5000/samples/1'
+
+<!-- Post Study -->
+
+curl -d '{ "permissions": "{test-permission: True}", "source_id": 1}' -H "Content-Type: application/json" -X POST http://localhost:5000/studies
+
+<!-- Delete Study -->
+
+curl -X DELETE 'http://localhost:5000/studies/1'
